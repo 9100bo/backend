@@ -11,12 +11,9 @@
     <!-- Swiper -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-    <!-- lightbox -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-
     <!-- page css -->
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/news_info.css">
+    @yield('css')
 
 </head>
 
@@ -31,10 +28,10 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="./index.html">首頁</a>
-                </li>
                 <li class="nav-item active">
+                    <a class="nav-link" href="#">首頁</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/news.html">最新消息</a>
                 </li>
                 <li class="nav-item">
@@ -49,27 +46,8 @@
     </nav>
 
     <main role="main">
-        <section class="news_info">
-            <div class="container">
-                <h2 class="info_title">中台灣推薦秘境景點</h2>
-                <div class="row">
-                    <div class="col-12 my-3 my-md-0 col-md-6">
-                        <div class="image_box h-100">
-                            <a href="./images/index/news/news_example.JPG" data-lightbox="image-1" data-title="My caption">
-                                <img width="100%" src="./images/index/news/news_example.JPG" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 my-3 my-md-0 col-md-6">
-                        <div class="info_content">
-                            <h3>景點名稱</h3>
-                            我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容我是文章詳細內容
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 內容放此 -->
+        @yield('content')
         <hr>
     </main>
 
@@ -89,10 +67,8 @@
 
     <!-- swiper -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <!-- lightbox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-
+    <!-- page js -->
+    @yield('lightbox')
     <!-- page js -->
     <script src="./js/index.js"></script>
 </body>
