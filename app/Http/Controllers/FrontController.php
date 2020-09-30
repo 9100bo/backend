@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\contact;
 
 class FrontController extends Controller
 {
@@ -12,12 +13,26 @@ class FrontController extends Controller
         return view('front/index',compact('news_list'));
     }
     public function news(){
-        return view('front/news');
+        $news_list = DB::table('news')->orderBy('id', 'desc')->paginate(6);
+        return view('front/news',compact('news_list'));
     }
-    public function news_info(){
-        return view('front/news_info');
+    public function news_info($news_id){
+        $news = DB::table('news')->where('id','=',$news_id)->first();
+        return view('front/news_info',compact('news'));
     }
     public function contact_us(){
         return view('front/contact_us');
+    }
+    public function contact_product(Request $request){
+        // dd($request->all());
+        // DB::table('contact')->insert(
+        //     ['email' => $request->email,
+        //     'place' => $request->place,
+        //     'file' => '',
+        //     'place_name' => $request->place_name,
+        //     'info' => $request->place_name,]
+        // );
+        contact::create($request->all());
+        return 'Success';
     }
 }

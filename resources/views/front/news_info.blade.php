@@ -1,6 +1,6 @@
 @extends('layouts/template')
 @section('content')
-<main role="main">
+<main role="main" style='margin:100px'>
     <section class="news_info">
         <div class="container">
             <h2 class="info_title">中台灣推薦秘境景點</h2>
