@@ -26,11 +26,18 @@ Auth::routes(['register'=>false]);
 Route::get('/admin', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-        // Matches The "/admin/users" URL
+        // News
         Route::get('news', 'NewsController@index');
         Route::get('news/create', 'NewsController@create');
         Route::POST('news/store', 'NewsController@store');
         Route::get('news/edit/{news_id}', 'NewsController@edit');
         Route::POST('news/update/{news_id}', 'NewsController@update');
         Route::get('news/destroy/{news_id}', 'NewsController@destroy');
+        //Products
+        Route::get('products', 'ProductsController@index');
+        Route::get('products/create', 'ProductsController@create');
+        Route::POST('products/store', 'ProductsController@store');
+        Route::get('products/edit/{products_id}', 'ProductsController@edit');
+        Route::POST('products/update/{products_id}', 'ProductsController@update');
+        Route::get('products/destroy/{products_id}', 'ProductsController@destroy');
 });

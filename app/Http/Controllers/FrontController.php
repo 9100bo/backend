@@ -10,7 +10,7 @@ class FrontController extends Controller
 {
     public function index(){
         $news_list = DB::table('news')->orderBy('id', 'desc')->take(3)->get();
-        return view('front/index',compact('news_list'));
+        return view('front.index',compact('news_list'));
     }
     public function news(){
         $news_list = DB::table('news')->orderBy('id', 'desc')->paginate(6);

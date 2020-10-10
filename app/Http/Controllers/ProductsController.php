@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\test;
+use App\Products;
 use Illuminate\Support\Facades\File;
 
-class NewsController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class NewsController extends Controller
     public function index()
     {
         //
-        $news_list = test::all();
-        return view('auth/admin/news/index', compact('news_list'));
+        $pro_list = Products::all();
+        return view('auth/admin/products/index', compact('pro_list'));
     }
 
     /**
@@ -30,7 +29,7 @@ class NewsController extends Controller
     {
         //
         // return view('admin/create',compact('news_list'));
-        return view('auth/admin/news/create');
+        return view('auth/admin/products/create');
     }
 
     /**
@@ -50,8 +49,8 @@ class NewsController extends Controller
             $requestData['img_url'] = $path;
         }
 
-        test::create($requestData);
-        return redirect('admin/news');
+        Products::create($requestData);
+        return redirect('admin/products');
     }
 
     /**
@@ -75,9 +74,9 @@ class NewsController extends Controller
     {
         //
         // dd($id);
-        $news = test::where('id', '=', $id)->first();
+        $news = Products::where('id', '=', $id)->first();
 
-        return view('auth/admin/news/edit', compact('news'));
+        return view('auth/admin/products/edit', compact('news'));
     }
 
     /**
@@ -90,7 +89,7 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $news = test::find($id);
+        $news = Products::find($id);
         $requestData = $request->all();
         if ($request->hasFile('img_url')) {
             $old_image = $news->img_url;
@@ -102,7 +101,7 @@ class NewsController extends Controller
 
         $news->update($requestData);
 
-        return redirect('/admin/news');
+        return redirect('/admin/products');
         // dd($request->all());
     }
 
@@ -115,7 +114,7 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
-        // $news = test::find($id);
+        // $news = Products::find($id);
         // $old_image = $news->img_url;
         // if (file_exists(public_path() . $old_image)) {
         //     File::delete(public_path() . $old_image);
@@ -123,8 +122,8 @@ class NewsController extends Controller
         // $news->delete();
 
         // return redirect('/admin/news');
-        test::destroy($id);
-        return redirect('/admin/news');
+        Products::destroy($id);
+        return redirect('/admin/products');
     }
 
     private function fileUpload($file, $dir)

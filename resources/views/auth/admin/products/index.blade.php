@@ -13,31 +13,31 @@
         </ol>
     </nav>
 
-    <button type="button" class="btn btn-outline-success"><a href="/admin/news/create">新增最新消息</a></button>
+    <button type="button" class="btn btn-outline-success"><a href="/admin/products/create">新增最新消息</a></button>
 
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th>Image</th>
-                <th>Title</th>
                 <th>Time</th>
                 <th width="200px">Change</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($news_list as $news)
+            @foreach ($pro_list as $products)
                 <tr>
-                    <td>{{$news->id}}</td>
+                    <td>{{$products->id}}</td>
+                    <td>{{$products->name}}</td>
                     <td>
-                        <img width='200px' src="{{$news->img_url}}" alt="">
+                        <img width='200px' src="{{$products->img_url}}" alt="">
                     </td>
-                    <td>{{$news->title}}</td>
-                    <td>{{$news->created_at}}</td>
+                    <td>{{$products->created_at}}</td>
                     <td>
-                        <button type="button" class="btn btn-success"><a href="/admin/news/edit/{{$news->id}}">編輯</a></button>
-                        {{-- <button type="button" class="btn btn-danger "><a href="/admin/news/destroy/{{$news->id}}">刪除</a></button> --}}
-                    <button type="button" class="btn btn-danger delete" data-newsid="{{$news->id}}">刪除</button>
+                        <button type="button" class="btn btn-success"><a href="/admin/products/edit/{{$products->id}}">編輯</a></button>
+                        {{-- <button type="button" class="btn btn-danger "><a href="/admin/products/destroy/{{$products->id}}">刪除</a></button> --}}
+                    <button type="button" class="btn btn-danger delete" data-productsid="{{$products->id}}">刪除</button>
 
                     </td>
 
@@ -59,10 +59,10 @@
         $(document).ready(function() {
             $('#example').DataTable();
             $("#example").on("click", ".delete", function(){
-                var news_id=this.dataset.newsid;
+                var news_id=this.dataset.productsid;
                 var r = confirm("Press a button!");
                     if (r == true) {
-                    window.location.href=`/admin/news/destroy/${news_id}`;
+                    window.location.href=`/admin/products/destroy/${news_id}`;
                 }
             });
         });
