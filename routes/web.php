@@ -22,7 +22,10 @@ Route::get('/news_info/{news_id}', 'FrontController@news_info');
 Route::get('/contact_us', 'FrontController@contact_us');
 Route::post('/contact_product', 'FrontController@contact_product');
 
+Route::get('/products', 'FrontController@products');
+
 Auth::routes(['register'=>false]);
+// Auth::routes();
 Route::get('/admin', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {

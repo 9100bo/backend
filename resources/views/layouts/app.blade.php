@@ -34,8 +34,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="admin/news">管理最新消息</a></li>
-                        <li><a href="admin/products">管理商品</a></li>
+                        <li><a href="/admin/news">管理最新消息</a></li>
+                        <li><a href="/admin/products">管理商品</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

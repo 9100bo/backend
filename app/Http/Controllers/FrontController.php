@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\contact;
+use App\Products;
 
 class FrontController extends Controller
 {
@@ -34,5 +35,9 @@ class FrontController extends Controller
         // );
         contact::create($request->all());
         return 'Success';
+    }
+    public function products(){
+        $news_list=Products::with('product_type')->find(1);
+        dd($news_list);
     }
 }
