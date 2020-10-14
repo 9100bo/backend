@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\contact;
 use App\Products;
+use App\ProductsType;
 
 class FrontController extends Controller
 {
@@ -37,7 +38,26 @@ class FrontController extends Controller
         return 'Success';
     }
     public function products(){
-        $news_list=Products::with('product_type')->find(1);
-        dd($news_list);
+        $products=ProductsType::with('products')->get();
+        // dd($products);
+        return view('front/products/index',compact('products'));
+    }
+
+    public function productsdetail($products_id){
+        // dd($products_id);
+        $products=Products::find($products_id);
+        // $products=Products::all();
+        // dd($products);
+        return view('front/products/productsdetail',compact('products'));
+    }
+
+    public function productsType($products_type_id){
+        // dd($products_type_id);
+        // $products=Products::find($products_type_id);
+
+        $product_type=ProductsType::find($products_type_id);
+        $products=$product_type->products;
+        // dd($products);
+        return view('front/products/productsType',compact('product_type','products'));
     }
 }

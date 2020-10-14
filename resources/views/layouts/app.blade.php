@@ -35,6 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li><a href="/admin/news">管理最新消息</a></li>
+                        <li><a href="/admin/product_type">管理商品類別</a></li>
                         <li><a href="/admin/products">管理商品</a></li>
                     </ul>
 

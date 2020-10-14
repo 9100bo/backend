@@ -13,35 +13,28 @@
         </ol>
     </nav>
 
-    <button type="button" class="btn btn-outline-success"><a href="/admin/products/create">新增商品</a></button>
-
+    <button type="button" class="btn btn-outline-success"><a href="/admin/product_type/create">新增商品類別</a></button>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         @csrf
         <thead>
             <tr>
-                <th width="100px">名稱</th>
-                <th width="200px">圖片</th>
-                <th width="20px">價錢</th>
-                <th width="100px">介紹內容</th>
-                <th width="100px">上架日期</th>
-                <th width="100px">排序</th>
-                <th width="100px">Change</th>
+                <th >類別名稱</th>
+                <th >排序</th>
+                <th width="100px">功能</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pro_list as $products)
                 <tr>
-                    <td>{{$products->name}}</td>
-                    <td>
-                        <img width='200px' src="{{$products->product_image}}" alt="">
-                    </td>
-                    <td>{{$products->price}}</td>
-                    <td>{{$products->info}}</td>
-                    <td>{{$products->created_at}}</td>
+                    <td>{{$products->type_name}}</td>
                     <td>{{$products->sort}}</td>
                     <td>
-                        <button type="button" class="btn btn-success"><a href="/admin/products/edit/{{$products->id}}">編輯</a></button>
-                        <button type="button" class="btn btn-danger delete" data-productsid="{{$products->id}}">刪除</button>
+                        <button type="button" class="btn btn-success"><a href="/admin/product_type/{{$products->id}}/edit">編輯</a></button>
+                        <button class="btn btn-danger delete" data-ptid="{{$products->id}}">刪除</button>
+                        <form id="delete-form-{{$products->id}}" method='POST' action='/admin/product_type/{{$products->id}}'>
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -53,15 +46,15 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
         $(document).ready(function() {
             // $('#example').DataTable();
             $('#example').DataTable( {
-                "order": [ 5, 'desc' ],
+                "order": [ 1, 'desc' ],
                 language:{
                     "processing":   "處理中...",
                     "loadingRecords": "載入中...",
@@ -85,10 +78,12 @@
                 }
             } );
             $("#example").on("click", ".delete", function(){
-                var news_id=this.dataset.productsid;
+                var product_type_id=this.dataset.ptid;
+                // console.log('555')
                 var r = confirm("Press a button!");
                     if (r == true) {
-                    window.location.href=`/admin/products/destroy/${news_id}`;
+                    // window.location.href=`/admin/products/destroy/${news_id}`;
+                    $('#delete-form-'+product_type_id).submit();
                 }
             });
         });

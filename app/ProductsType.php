@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class ProductsType extends Model
 {
     //
-    protected $table='products';
+    protected $table='products_type';
 
     protected $fillable = [
-        'name', 'info', 'product_image',
+        'type_name', 'sort'
     ];
-    public function product_type()
+    public function products()
     {
         return $this->hasMany('App\Products','type_id');
     }

@@ -23,6 +23,8 @@ Route::get('/contact_us', 'FrontController@contact_us');
 Route::post('/contact_product', 'FrontController@contact_product');
 
 Route::get('/products', 'FrontController@products');
+Route::get('/products/{products_id}', 'FrontController@productsdetail');
+Route::get('/products/products_type/{products_type_id}', 'FrontController@productsType');
 
 Auth::routes(['register'=>false]);
 // Auth::routes();
@@ -43,4 +45,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('products/edit/{products_id}', 'ProductsController@edit');
         Route::POST('products/update/{products_id}', 'ProductsController@update');
         Route::get('products/destroy/{products_id}', 'ProductsController@destroy');
+        // Route::get('products/{type_id}', 'ProductsTypeController@index');
+
+        Route::resource('product_type', 'ProductsTypeController');
 });

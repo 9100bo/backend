@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Products;
+use App\ProductsType;
 use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
@@ -29,7 +30,9 @@ class ProductsController extends Controller
     {
         //
         // return view('admin/create',compact('news_list'));
-        return view('auth/admin/products/create');
+        $product_types=ProductsType::all();
+        // dd($producttypes);
+        return view('auth/admin/products/create', compact('product_types'));
     }
 
     /**
