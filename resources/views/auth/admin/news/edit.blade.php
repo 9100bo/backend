@@ -17,10 +17,10 @@
     </div>
     <div class="form-group">
         <label for="image">現有的圖片</label>
-    <img width="100%" src="{{$news->img_url}}" alt="">
+        <img width="100%" src="{{$news->img_url}}" alt="">
         <label for="image">新增的圖片</label>
         <input type="file" class="form-control-file" id="image" name='img_url'>
-      </div>
+    </div>
     <div class="form-group">
       <label for="content">內容</label>
       <input type="text" class="form-control" id="content" name='content' value='{{$news->content}}'>

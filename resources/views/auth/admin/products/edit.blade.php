@@ -4,29 +4,49 @@
 @endsection
 
 @section('content')
-<form method='POST' action='/admin/news/update/{{$news->id}}' enctype='multipart/form-data'>
-   @csrf
+<form method='POST' action='/admin/products/store' enctype='multipart/form-data'>
+    @csrf
     <div class="form-group">
-      <label for="title">標題</label>
-    <input type="text" class="form-control" id="title" name='title' value='{{$news->title}}'>
+        <label for="type_id">类别</label>
+        <select name="type_id" id="" class='form-control'>
+            @foreach ($product_types as $product_type)
+            <option value="{{$product_type->id}}" @if($product_type->id==$products->type_id) selected @endif>{{$product_type->type_name}}</option>
+            @endforeach
+        </select>
     </div>
     <div class="form-group">
-      <label for="sub_title">副標題</label>
-      <input type="text" class="form-control" id="sub_title" name='sub_title' value='{{$news->sub_title}}'>
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name='name' value='{{$products->name}}'>
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name='price' value='{{$products->price}}'>
 
     </div>
     <div class="form-group">
-        <label for="image">現有的圖片</label>
-    <img width="100%" src="{{$news->img_url}}" alt="">
-        <label for="image">新增的圖片</label>
-        <input type="file" class="form-control-file" id="image" name='img_url'>
-      </div>
-    <div class="form-group">
-      <label for="content">內容</label>
-      <input type="text" class="form-control" id="content" name='content' value='{{$news->content}}'>
+        <label for="product_image">現有的圖片</label>
+        <img width="200px" src="{{$products->product_image}}" alt="">
     </div>
-    <button type="submit" class="btn btn-primary">編輯</button>
-  </form>
+    <div class="form-group">
+        <label for="product_image">多圖</label>
+        {{-- {{$products->productImages}} --}}
+        @foreach ($products->productImages as $product_image)
+            {{-- {{$product_image}} --}}
+            <img width="200px" src="{{$product_image->img_url}}" alt="">
+        @endforeach
+    </div>
+    <div class="form-group">
+        <label for="product_image">新增的圖片</label>
+        <input type="file" class="form-control-file" id="product_image" name='product_image'>
+    </div>
+    <div class="form-group">
+        <label for="info">Info</label>
+        {{-- <input type="text" class="form-control" id="info" name='info'> --}}
+        <textarea id="info" name="info" class='form-control'>{!!$products->info!!}</textarea>
+    </div>
+    <button
+    type="submit" class="btn btn-primary">提交</button>
+</form>
 
 @endsection
 

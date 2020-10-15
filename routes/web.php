@@ -31,6 +31,8 @@ Auth::routes(['register'=>false]);
 Route::get('/admin', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+        Route::post('/ajax_upload_img','AdminController@ajax_upload_img');
+        Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
         // News
         Route::get('news', 'NewsController@index');
         Route::get('news/create', 'NewsController@create');

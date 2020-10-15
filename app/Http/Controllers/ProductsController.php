@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Products;
 use App\ProductsType;
+use App\ProductsImages;
 use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
@@ -43,17 +44,37 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-
+        // $files = $request->file('imgs');
         $requestData = $request->all();
 
-        if ($request->hasFile('img_url')) {
-            $file = $request->file('img_url');
+        if ($request->hasFile('product_image')) {
+            $file = $request->file('product_image');
             $path = $this->fileUpload($file, 'news');
-            $requestData['img_url'] = $path;
+            $requestData['product_image'] = $path;
         }
 
-        Products::create($requestData);
-        return redirect('admin/products');
+        // Products::create($requestData);
+        // return redirect('admin/products');
+
+        //多個檔案
+        $product=Products::create($requestData);
+        $product_id=$product->id;
+
+        if($request->hasFile('imgs'))
+        {
+            $files = $request->file('imgs');
+            foreach ($files as $file) {
+                //上傳圖片
+                $path = $this->fileUpload($file,'imgs');
+                //新增資料進DB
+                ProductsImages::create([
+                    'img_url'=> $path,
+                    'product_id'=> $product_id,
+                ]);
+            }
+        }
+
+        return redirect('/admin/products');
     }
 
     /**
@@ -75,11 +96,13 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
-        // dd($id);
-        $news = Products::where('id', '=', $id)->first();
-
-        return view('auth/admin/products/edit', compact('news'));
+        // $product=Products::where('id',$id)->with('productImages')->first();
+        // dd($product);
+        $product_types=ProductsType::all();
+        // $products=Products::find($id);
+        $products = Products::where('id',$id)->with('productImages')->first();
+        // dd($products->productImages);
+        return view('auth/admin/products/edit', compact('products','product_types'));
     }
 
     /**
@@ -94,11 +117,11 @@ class ProductsController extends Controller
         //
         $news = Products::find($id);
         $requestData = $request->all();
-        if ($request->hasFile('img_url')) {
-            $old_image = $news->img_url;
-            $file = $request->file('img_url');
+        if ($request->hasFile('product_image')) {
+            $old_image = $news->product_image;
+            $file = $request->file('product_image');
             $path = $this->fileUpload($file, 'news');
-            $requestData['img_url'] = $path;
+            $requestData['product_image'] = $path;
             File::delete(public_path() . $old_image);
         }
 
