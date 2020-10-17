@@ -15,7 +15,6 @@
 //     return view('welcome');
 // });
 
-
 Route::get('/', 'FrontController@index');
 Route::get('/news', 'FrontController@news');
 Route::get('/news_info/{news_id}', 'FrontController@news_info');
@@ -31,6 +30,8 @@ Auth::routes(['register'=>false]);
 Route::get('/admin', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+        Route::post('/ajax_delete_product_imgs','AdminController@ajax_delete_product_imgs');
+
         Route::post('/ajax_upload_img','AdminController@ajax_upload_img');
         Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
         // News

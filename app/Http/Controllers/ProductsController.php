@@ -115,17 +115,32 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $news = Products::find($id);
+        $item = Products::find($id);
         $requestData = $request->all();
         if ($request->hasFile('product_image')) {
-            $old_image = $news->product_image;
+            $old_image = $item->product_image;
             $file = $request->file('product_image');
-            $path = $this->fileUpload($file, 'news');
+            $path = $this->fileUpload($file, 'product');
             $requestData['product_image'] = $path;
             File::delete(public_path() . $old_image);
         }
 
-        $news->update($requestData);
+        //多個檔案
+        if($request->hasFile('imgs'))
+        {
+            $files = $request->file('imgs');
+            foreach ($files as $file) {
+                //上傳圖片
+                $path = $this->fileUpload($file,'product_imgs');
+                //新增資料進DB
+                $product_img = new ProductsImages;
+                $product_img->product_id = $id;
+                $product_img->img_url = $path;
+                $product_img->save();
+            }
+        }
+
+        $item->update($requestData);
 
         return redirect('/admin/products');
         // dd($request->all());
